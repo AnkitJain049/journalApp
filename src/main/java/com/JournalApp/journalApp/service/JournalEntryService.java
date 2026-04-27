@@ -1,17 +1,19 @@
 package com.JournalApp.journalApp.service;
 
-import com.JournalApp.journalApp.entity.JournalEntry;
-import com.JournalApp.journalApp.entity.User;
-import com.JournalApp.journalApp.repository.JournalEntryRepository;
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import com.JournalApp.journalApp.entity.JournalEntry;
+import com.JournalApp.journalApp.entity.User;
+import com.JournalApp.journalApp.repository.JournalEntryRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
@@ -47,11 +49,21 @@ public class JournalEntryService {
     public Optional<JournalEntry> findByID(ObjectId id){
         return journalEntryRepository.findById(id);
     }
-
-    public void deleteById(ObjectId id, String username){
-        User user= userService.findByUserName(username);
-        user.getJournalEntries().removeIf(x->x.getId().equals(id));
-        userService.saveUser(user);
-        journalEntryRepository.deleteById(id);
+    @Transactional
+    public boolean deleteById(ObjectId id, String username){
+        boolean removed=false;
+        try{
+            User user= userService.findByUserName(username);
+            removed = user.getJournalEntries().removeIf(x->x.getId().equals(id));
+            if(removed){
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        }catch (Exception e) {
+            log.error("Exception",e);
+            throw new RuntimeException("An error has occurred while deleting entry: "+e);
+        }
+        return removed;
     }
+
 }

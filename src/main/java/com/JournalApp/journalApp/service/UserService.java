@@ -1,20 +1,19 @@
 package com.JournalApp.journalApp.service;
 
-import com.JournalApp.journalApp.entity.JournalEntry;
-import com.JournalApp.journalApp.entity.User;
-import com.JournalApp.journalApp.repository.JournalEntryRepository;
-import com.JournalApp.journalApp.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import com.JournalApp.journalApp.entity.User;
+import com.JournalApp.journalApp.repository.UserRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
@@ -25,13 +24,13 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void saveUser(User user) {
+    public void saveNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList("USER"));
         userRepository.save(user);
     }
 
-    public void saveNewUser(User user) {
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 

@@ -1,21 +1,19 @@
 package com.JournalApp.journalApp.controller;
 
-import com.JournalApp.journalApp.entity.JournalEntry;
-import com.JournalApp.journalApp.entity.User;
-import com.JournalApp.journalApp.repository.UserRepository;
-import com.JournalApp.journalApp.service.JournalEntryService;
-import com.JournalApp.journalApp.service.UserService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderThreadLocalAccessor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.JournalApp.journalApp.entity.User;
+import com.JournalApp.journalApp.repository.UserRepository;
+import com.JournalApp.journalApp.service.UserService;
 
 //Controller--->Service--->Repository
 
@@ -37,7 +35,7 @@ public class UserController {
         if(userInDb != null){
             userInDb.setUserName(user.getUserName());
             userInDb.setPassword(user.getPassword());
-            userService.saveUser(userInDb);
+            userService.saveNewUser(userInDb);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
