@@ -30,8 +30,8 @@
 		<java.version>26</java.version>
     <!-- Point to your local machine -->
     <sonar.host.url>http://localhost:9000</sonar.host.url>
-    <!-- Use a token generated from your local instance -->
-    <sonar.token>squ_fd7e294c225a793cee06f9bc5caa556fd7e5ca21</sonar.token>
+    <!-- Set SONAR_TOKEN locally; do not commit the actual token in source control -->
+    <sonar.login>${env.SONAR_TOKEN}</sonar.login>
     <!-- Required for Java 26 rule accuracy -->
     <sonar.java.source>26</sonar.java.source>
 	</properties>
