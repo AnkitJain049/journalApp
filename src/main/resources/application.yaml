@@ -1,7 +1,0 @@
-spring:
-  config:
-    import: "optional:file:.env[.properties]"
-  mongodb:
-    uri: ${MONGODB_URI}
-    database: journalDb
-    auto-index-creation: true
