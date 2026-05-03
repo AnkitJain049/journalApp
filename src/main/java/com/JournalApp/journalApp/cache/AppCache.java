@@ -7,6 +7,7 @@ import java.util.Map;
 import com.JournalApp.journalApp.entity.ConfigJournalAppEntity;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.JournalApp.journalApp.repository.ConfigJournalAppRepository;
 
@@ -25,4 +26,6 @@ public class AppCache {
             APP_CACHE.put(configJournalAppEntity.getKey(), configJournalAppEntity.getValue());
         }
     }
+
+    
 }
