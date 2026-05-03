@@ -1,6 +1,10 @@
 package com.JournalApp.journalApp.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -13,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "users")
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     private ObjectId id;
@@ -23,6 +29,8 @@ public class User {
     private String userName;
     @NonNull
     private String password;
+    private String email;
+    private boolean sentimentAnalysis;
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
     private List<String> roles;
