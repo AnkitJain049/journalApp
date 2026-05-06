@@ -30,8 +30,10 @@ public class User {
     @NonNull
     private String password;
     private String email;
-    private boolean sentimentAnalysis;
+    private Boolean sentimentAnalysis;
+    @Builder.Default
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
-    private List<String> roles;
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 }
